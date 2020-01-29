@@ -18,15 +18,21 @@ module.exports.show=(req,res)=>{
 }
 
 module.exports.add = (req,res)=>{
-    const body = req.body
-    const url = body.OriginalURL
-    if(validator.isURI(url)){
-        const bookmark = new Bookmark(body)
+    let body = req.body
+    const url = body.original_url
+    console.log(body)
+    console.log(validator.isDataURI('https://npmdoc.github.io/node-npmdoc-express-validator/build/apidoc.html#apidoc.element.express-validator.validator.isDataURI'))
+    if(validator.isDataURI(url)){
+        
         
         
         schema.pre('save', function() {
-            return sh.unique(url).
+            const hashed = sh.unique(url)
+            
+            return hashed.
                 then(() =>{
+                    body.hashedUrl = hashed
+                    const bookmark = new Bookmark(body)
                     bookmark.save()
                         .then(book=>res.json(book))
                         .catch(err=>res.json(err))

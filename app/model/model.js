@@ -3,27 +3,26 @@ const Schema = mongoose.Schema
 
 
 const bookmarkSchema = new Schema({
-    Id:{
-        type:Schema.Types.ObjectId,
-        required:true        
+    id:{
+        type:Schema.Types.ObjectId        
     },
-    Title:{
+    title:{
         type:String,
         required:true
     },
-    OriginalURL:{
+    originalURL:{
         type:String,
         required:true
     },
-    Tags:[{
+    tags:[{
         type:String,
         required:true
     }],
-    HashedURL:{
+    hashed_url:{
         type:String,
         required:true
     },
-    CreatedAt:{
+    createdAt:{
         type:Date,
         default: new Date(),
         required:true
