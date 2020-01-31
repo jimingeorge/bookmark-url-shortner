@@ -12,7 +12,7 @@ app.use('/',router)
 
 app.get('/',(req,res)=>{
     res.json({
-        msg: 'Welcome'
+        msg: 'Welcome to Bookmark & Url-Shortner App'
     })
 })
 

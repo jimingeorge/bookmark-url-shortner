@@ -1,9 +1,6 @@
 const Bookmark = require('../model/model')
 const validator = require('validator');
 
-//const bookmarkSchema = require('../model/model')
-
-
 module.exports.list = (req,res)=>{
     Bookmark.find()
         .then(bookmarks=>res.json(bookmarks))
@@ -27,7 +24,7 @@ module.exports.add = (req,res)=>{
     let body = req.body
     const url = body.originalUrl
     console.log(body)
-    //console.log(validator.isURL('https://dctacademy.com/2018/05/become-full-stack-javascript-developer/'))
+    
     if(validator.isURL(url)){
     const bookmark = new Bookmark(body)
     bookmark.save(body)

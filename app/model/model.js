@@ -35,20 +35,7 @@ bookmarkSchema.pre('save', function (next) {
 
 })  
 
-// bookmarkSchema.pre('findOneAndUpdate', function (next) {
-//     var self = this;
-//     self._update.hashedUrl = sh.unique(self._update.originalUrl)  
-//     console.log(self.hashedUrl)
-//     next()
-
-// }) 
 
 const Bookmark = mongoose.model('Bookmark',bookmarkSchema)
 
 module.exports=Bookmark
-// module.exports=bookmarkSchema
-
-// module.exports={
-//     Bookmark,
-//     bookmarkSchema
-// }
