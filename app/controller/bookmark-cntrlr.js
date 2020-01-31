@@ -1,13 +1,13 @@
 const Bookmark = require('../model/model')
 const validator = require('validator');
-const sh = require("shorthash");
- 
+
+//const bookmarkSchema = require('../model/model')
 
 
 module.exports.list = (req,res)=>{
     Bookmark.find()
         .then(bookmarks=>res.json(bookmarks))
-        .catch(err=>res.json(err))
+        .catch(err=>res.json(err.message))
 }
 
 module.exports.show=(req,res)=>{
@@ -19,25 +19,14 @@ module.exports.show=(req,res)=>{
 
 module.exports.add = (req,res)=>{
     let body = req.body
-    const url = body.original_url
+    const url = body.originalUrl
     console.log(body)
-    console.log(validator.isDataURI('https://npmdoc.github.io/node-npmdoc-express-validator/build/apidoc.html#apidoc.element.express-validator.validator.isDataURI'))
-    if(validator.isDataURI(url)){
-        
-        
-        
-        schema.pre('save', function() {
-            const hashed = sh.unique(url)
-            
-            return hashed.
-                then(() =>{
-                    body.hashedUrl = hashed
-                    const bookmark = new Bookmark(body)
-                    bookmark.save()
-                        .then(book=>res.json(book))
-                        .catch(err=>res.json(err))
-                });
-            });    
+    //console.log(validator.isURL('https://dctacademy.com/2018/05/become-full-stack-javascript-developer/'))
+    if(validator.isURL(url)){
+    const bookmark = new Bookmark(body)
+    bookmark.save(body)
+            .then(bookmark=>res.json(bookmark))
+            .catch(err=>res.json(err))                            
     }else{
         res.json('Please check the url')
     }
