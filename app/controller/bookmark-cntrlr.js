@@ -13,7 +13,13 @@ module.exports.list = (req,res)=>{
 module.exports.show=(req,res)=>{
     const id = req.params.id
     Bookmark.findById(id)
-        .then(data=>res.json(data))
+        .then(data=>{
+            if(bookmark){
+                res.json(data)
+            }else{
+                res.json({})
+            }
+        })
         .catch(err=>res.json(err))
 }
 
@@ -45,6 +51,35 @@ module.exports.update= (req,res)=>{
 module.exports.destroy = (req,res)=>{
     const id= req.params.id
     Bookmark.findByIdAndDelete(id)
+        .then(dat=>res.json(dat))
+        .catch(err=>res.json(err))
+}
+
+module.exports.showHash = (req,res)=>{
+    const hash= req.params.hash
+    Bookmark.findOne({hashedUrl:hash},(err,nonerr)=>{
+        if(nonerr){
+            res.redirect(nonerr.originalUrl)
+        }else{
+            res.send('error')
+        }
+    })
+        .then(dat=>res.json(dat))
+        .catch(err=>res.json(err))
+}
+
+module.exports.showTag = (req,res)=>{
+    const tags= req.params.name
+    console.log(req.params)
+    Bookmark.find({tags})
+        .then(dat=>res.json(dat))
+        .catch(err=>res.json(err))
+}
+
+module.exports.showManyTags = (req,res)=>{
+    const tags= req.query.names.split(',')
+    console.log(tags)
+    Bookmark.find({tags:{"$in":tags}})
         .then(dat=>res.json(dat))
         .catch(err=>res.json(err))
 }
