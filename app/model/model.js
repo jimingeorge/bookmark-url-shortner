@@ -17,8 +17,7 @@ const bookmarkSchema = new Schema({
         required:true
     }],
     hashedUrl:{
-        type:String,
-        required:true
+        type:String
     },
     createdAt:{
         type:Date,
@@ -36,13 +35,13 @@ bookmarkSchema.pre('save', function (next) {
 
 })  
 
-bookmarkSchema.pre('findOneAndUpdate', function (next) {
-    var self = this;
-    self._update.hashedUrl = sh.unique(self._update.originalUrl)  
-    console.log(self.hashedUrl)
-    next()
+// bookmarkSchema.pre('findOneAndUpdate', function (next) {
+//     var self = this;
+//     self._update.hashedUrl = sh.unique(self._update.originalUrl)  
+//     console.log(self.hashedUrl)
+//     next()
 
-}) 
+// }) 
 
 const Bookmark = mongoose.model('Bookmark',bookmarkSchema)
 
